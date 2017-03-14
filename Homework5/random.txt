@@ -1,0 +1,4 @@
+Tip,Q,87.3
+Dawg,Phife,95.0
+Muhammad,Ali Shaheed,97.0
+White,Jarobi,85.0

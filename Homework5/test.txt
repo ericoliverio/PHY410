@@ -1,0 +1,6 @@
+Physics,Bastard,Dirty,80,100
+History,Deck,Inspectah,23.1,45
+Literature,Man,Method,36.5,56,20
+History,Killah,Ghostface,45.6,21
+Physics,GZA,the,33.3,100
+Literature,RZA,the,25.6,1,45
