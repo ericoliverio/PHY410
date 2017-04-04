@@ -22,6 +22,7 @@ vector<double>               // C++ std template vector type
   mu_err_data;               // error in distance modulus - column 4
 
 // ---------------- function declarations ----------------
+\
 
 void read_data();            // opens and reads the data file
 
