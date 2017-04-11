@@ -19,7 +19,9 @@ int main()
 
     // define a histogram to store the data
     int bins = 100;
-    double M_min = 1.0, M_max = 10.0;
+    
+    //I DID SOME MESSING AROUNG WITH M_min
+double M_min = 3.0, M_max = 10.0;
     double dM = (M_max - M_min) / bins;
     vector<double> M(bins), N(bins);
     for (int i = 0; i < bins; i++)
@@ -34,6 +36,7 @@ int main()
       cout << " reading data file: " << quake_data << endl;
     string line;
     int events = 0;
+
     while (getline(data_file, line)) {
         if (line.c_str()[0] != 't') {
 	    //cout << "string is " << line << endl;
@@ -49,7 +52,10 @@ int main()
 	    size_t foundlast = line.find(token, found);
             string magnitudestr = line.substr(found+1, foundlast);
             double magnitude = atof(magnitudestr.c_str());         // atof <cstdlib>
-	   
+
+	    //what I added
+	    if (( magnitude >= 3.0 ) && (magnitude < 10.0)) {
+
 	    // Find the bin number for this magnitude
             int binnumber = int( floor( (magnitude - M_min) / dM ) );   // floor <cmath>
 
@@ -58,8 +64,12 @@ int main()
 	      for (int jlowerbins = 0; jlowerbins <= binnumber; ++jlowerbins, ++events)
                     N[jlowerbins] += 1;
             }
-        }
+	    //if mine 
+	    }
+	}
+	
     }
+  
     data_file.close();
     cout << " stored " << events << " events in histogram" << endl;
 
@@ -95,7 +105,8 @@ int main()
                 << "plot f(x) title \'" << a << " - " << -b << " M\', "
                 << "\'histogram.dat\' with points, "
                 << "\'histogram.dat\' with impulses lw 2" << '\n';
-    script_file.close();
+ 
+   script_file.close();
 
     // If you're using gnuplot, you can execute as : 
     // > gnuplot -persist quake.gnu

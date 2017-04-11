@@ -4,7 +4,7 @@ from fft import fft
 from numpy import array
 import math
 
-plotfirst = True
+plotfirst = False
 
 if plotfirst == True : 
     # make some fake data :
