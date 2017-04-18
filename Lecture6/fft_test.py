@@ -1,10 +1,10 @@
 import matplotlib.pyplot as plt
 
-from fft import fft
+from fft import fft, fft_power, ifft
 from numpy import array
 import math
 
-plotfirst = False
+plotfirst = True
 
 if plotfirst == True : 
     # make some fake data :
@@ -19,6 +19,9 @@ if plotfirst == True :
 
     Yre = [math.sqrt(Y[i].real**2 + Y[i].imag**2) for i in xrange(N)]
 
+    powery = fft_power(Y)
+    powerx = array([ float(i) for i in xrange(len(powery)) ] )
+
     s1 = plt.subplot(2, 1, 1)
     plt.plot( x, y )
 
@@ -26,6 +29,9 @@ if plotfirst == True :
     s2.set_autoscalex_on(False)
     plt.plot( x, Yre )
     plt.xlim([0,20])
+
+    s3 = plt.subplot(2, 1, 2)
+    plt.plot( powerx, powery)
 
     plt.show()
 
