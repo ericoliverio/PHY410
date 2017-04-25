@@ -2,6 +2,7 @@ from trapezoid import *
 from math import *
 from numpy import array
 from root_finding import *
+import matplotlib.pyplot as plt
 
 # Calculating the deflection angle by
 # integrating the differential cross section
@@ -119,7 +120,7 @@ class Theta :
 
     def f_r_min( self, r ) :
             return 1 - pow(self.b / r,2.0) - self.V(r) / self.E
-
+    #HERE
     def dTheta_dr( self, r ) :
         X = self.f_r_min( r )
         return 1.0 / sqrt( abs(X) ) / pow(r,2.0)
@@ -137,6 +138,7 @@ class Theta :
         # Find the distance of closest approach with the "root_simple" method
         dr = -1.0 * self.r_max / 100
         r_max = self.r_max
+        #HERE
         r_min = root_simple( self.f_r_min, r_max, dr)
         
         # Integrate to find successive changes in theta :
@@ -151,7 +153,8 @@ class Theta :
             rtheta[1] += dtheta
             traj.append( array( rtheta ) )
             deflection += 2 * dtheta
-
+        
+        
 
         # Use symmetry to get the outgoing trajectory points
         for i in range( self.steps-1, 0, -1) :
@@ -165,24 +168,35 @@ class Theta :
 
 def main() :
     print ' Classical scattering from Lennard-Jones potential'
-    E = 0.705
+    #print ' Classicql scattering from Hard-sphere'
+    
+    #HERE
+    #E =0.1
+    E = 0.7054
     print ' E = ' + str(E)
-    b_min = 0.6
+    b_min = 1.7
+    
     db = 0.3
     n_b = 6
+    bplot = []
+    Tplot = []
+    #V = hard_sphere_potential( V0 = 1.0 )
     V = lennard_jones( V0 = 1.0 )
     for i in xrange(n_b) :
         b = b_min + db*i
         theta = Theta( V, E, b, 3.5, 100 )
         [deflection,trajs] = theta.trajectory()
-        print ' {0:4.2f} : {1:6.2f}'.format( b, deflection )
+        print  '{0:4.2f} : {1:6.2f}'.format( b, deflection )
+        bplot.append(b)
+        Tplot.append(deflection)
         trajfile = open( 'trajfile_py_' + str(i) + '.data', 'w' )
         for traj in trajs :
             s = '{0:8.4f} {1:8.4f}\n'.format( traj[0] * cos( traj[1] ), traj[0] * sin(traj[1]) )
             trajfile.write( s )
         trajfile.close()
-
+    #plt.plot(bplot,Tplot)    
+    #plt.show()
     print 'Finished! Trajectories are in trajfile[i].data'
-
+    
 if __name__ == "__main__" :
     main()
